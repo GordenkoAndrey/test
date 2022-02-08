@@ -1,4 +1,6 @@
 Debug/
+*.cbp
+*.depend
 *.suo
 *.db
 *.ipch

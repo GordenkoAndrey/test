@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1644346028 source:d:\Мусор\mysor2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+
