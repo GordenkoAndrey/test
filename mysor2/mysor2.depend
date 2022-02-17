@@ -1,6 +1,11 @@
 # depslib dependency file v1.0
-1644346028 source:d:\Мусор\mysor2\main.c
+1645138093 source:d:\Мусор\mysor2\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	<locale.h>
+	<wchar.h>
+	<ctype.h>
+	<fcntl.h>
+	<io.h>
 

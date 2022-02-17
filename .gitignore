@@ -1,4 +1,6 @@
 Debug/
+*.depend
+*.layout
 *.cbp
 *.depend
 *.suo

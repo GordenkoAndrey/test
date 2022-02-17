@@ -1,20 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
+#include <wchar.h>
+#include <ctype.h>
+#include <fcntl.h>
+#include <io.h>
+
+void anot()
+{
+    wprintf(L"------------------------------------------------------------------------------------------------------------------\n");
+    wprintf(L"|Цей застосунок створений для визначення, чи є в реченні слово девелопер на будь-якій мові                        |\n");
+    wprintf(L"|                                                                                Горденко А.В.                    |\n");
+    wprintf(L"|                                                                                andgorden777@gmail.com           |\n");
+    wprintf(L"|Центральноукраїнський національний технічний університет                                                         |\n");
+    wprintf(L"|                                                                                2022                             |");
+    wprintf(L"\n------------------------------------------------------------------------------------------------------------------\n");
+}
+
+
 
 int main()
 {
-    char *locale = setlocale(LC_ALL, "UKR");
+    _setmode(_fileno(stdout),_O_U16TEXT);
+    _setmode(_fileno(stdin),_O_U16TEXT);
     system("chcp 65001");
 
-    char in_text[256];
+       anot();
 
-    printf("����i�� ������� ����i������/����������:\n");
-    gets(in_text);
-
+    wchar_t in_text[200];
+    wchar_t ukr[10] = L"девелопер";
+    wchar_t UKR[10] = L"ДЕВЕЛОПЕР";
+    wchar_t eng[10] = L"developer";
+    wchar_t ENG[10] = L"DEVELOPER";
     int tmp = 0;
-    int i = 0;
-    while (1)
+    int prov = 0;
+
+    wprintf(L"Введiть речення англiйською/Українською:\n");
+    fgetws(in_text, 200, stdin);
+
+
+    for (int i = 0; i < 200; i++)
     {
         if (in_text[i] == ',' ||
            in_text[i] == '!' ||
@@ -27,63 +53,38 @@ int main()
         {
             break;
         }
-        if (in_text[i] == 'd' &&
-            in_text[i + 1] == 'e' &&
-            in_text[i + 2] == 'v' &&
-            in_text[i + 3] == 'e' &&
-            in_text[i + 4] == 'l' &&
-            in_text[i + 5] == 'o' &&
-            in_text[i + 6] == 'p' &&
-            in_text[i + 7] == 'e' &&
-            in_text[i + 8] == 'r')
+
+        for (int j = 0; j < 9; j++)
         {
-            tmp = 1;
+            if (in_text[i + j] == ukr[j] ||
+                in_text[i + j] == UKR[j] ||
+                in_text[i + j] == eng[j] ||
+                in_text[i + j] == ENG[j])
+            {
+                prov += 1;
+                if(prov == 9)
+                {
+                    tmp = 1;
+                    break;
+                }
+            }
+            else
+            {
+                prov = 0;
+            }
         }
-         if (in_text[i] == 'D' &&
-            in_text[i + 1] == 'E' &&
-            in_text[i + 2] == 'V' &&
-            in_text[i + 3] == 'E' &&
-            in_text[i + 4] == 'L' &&
-            in_text[i + 5] == 'O' &&
-            in_text[i + 6] == 'P' &&
-            in_text[i + 7] == 'E' &&
-            in_text[i + 8] == 'R')
+        if (tmp == 1)
         {
-            tmp = 1;
+            break;
         }
-         if (in_text[i] == '�' &&
-            in_text[i + 1] == '�' &&
-            in_text[i + 2] == '�' &&
-            in_text[i + 3] == '�' &&
-            in_text[i + 4] == '�' &&
-            in_text[i + 5] == '�' &&
-            in_text[i + 6] == '�' &&
-            in_text[i + 7] == '�' &&
-            in_text[i + 8] == '�')
-        {
-            tmp = 1;
-        }
-         if (in_text[i] == '�' &&
-            in_text[i + 1] == '�' &&
-            in_text[i + 2] == '�' &&
-            in_text[i + 3] == '�' &&
-            in_text[i + 4] == '�' &&
-            in_text[i + 5] == '�' &&
-            in_text[i + 6] == '�' &&
-            in_text[i + 7] == '�' &&
-            in_text[i + 8] == '�')
-        {
-            tmp = 1;
-        }
-        i++;
-    }
-    if (tmp == 1)
-    {
-        printf("�");
-    }
-    else
-    {
-        printf("����");
     }
 
+    if (tmp == 1)
+        {
+            wprintf(L"В реченні є слова\"девелопер/developer\"\n");
+        }
+    else
+        {
+            wprintf(L"В реченні немає слова\"девелопер/developer\"\n");
+        }
 }
